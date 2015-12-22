@@ -22,7 +22,7 @@ import org.opencv.imgproc.Imgproc;
 
 public class OCR_Processing {
 
-    public static void performOCR_String2Text(File x) throws IOException 
+    public static String performOCR_String2Text(File x) throws IOException 
     {
         System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
          File imageFile = x;   //da  usare senza filtro in grigio
@@ -63,9 +63,10 @@ public class OCR_Processing {
              System.out.println("File not found");
              result="file not found";
          }
-         System.out.println("\t\t\t->"+"src/pipeline/outputImg/"+Global.getJPGNameFile()+"grayscale.jpg");
-         System.out.println( "\t\t\t->"+result); 
+ //        System.out.println("\t\t\t->"+"src/pipeline/outputImg/"+Global.getJPGNameFile()+"grayscale.jpg");
+         //System.out.println( "\t\t\t->"+result); 
          output.delete();
+         return result;
          
          /*long endTime   = System.currentTimeMillis();
 long totalTime = endTime - startTime;

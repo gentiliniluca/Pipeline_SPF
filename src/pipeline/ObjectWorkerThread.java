@@ -18,7 +18,7 @@ public class ObjectWorkerThread implements Runnable
     {
         this.sock=s;
         this.action=action;
-        Thread.currentThread().setName("CountObjectWorkerThread");
+        Thread.currentThread().setName("WorkerThread");
     }
     
     @Override
@@ -53,51 +53,59 @@ public class ObjectWorkerThread implements Runnable
         fileOut.close();
         sock.close();
         
-        //processing del count objects
+        //processing 
         Thread.sleep(100);
         
         File x = new File("src/pipeline/receivedImg/"+nomeFile);
         if(!x.exists())
         {
-            System.out.println("NON ESITOOOOOOOOOOOOOOOOOOOOO");
+            System.out.println("NON ESISTO");
         }
         else
         {
+            javaxt.io.Image image = new javaxt.io.Image(x);
+            double[] coordinate = image.getGPSCoordinate();
+            if (coordinate==null)
+                System.out.println("non ci sono coordinate gps");
+            
             if(action.equals("count"))
             {
-                System.out.println("oggetti rilevati per "+nomeFile+" sono "+ Count_Processing.CountObject(x));
+                Global.IncrementaNumeroRichiesteEffettive("police");
+                
+                String value=Count_Processing.CountObject(x);
+                
+                double halfVOI= Global.getApplicationPriority("police")*Global.getNumeroRichiesteEffettive("police")/Global.getStimaNumeroRichieste("police");
+                java.util.Date date= new java.util.Date();
+                SingleResult sr= new SingleResult(nomeFile, "count", value, new Timestamp(date.getTime()), coordinate[0], coordinate[1], halfVOI);
+                
+                //System.out.println(sr.toString());
+                Results.addResult(sr);
             }
             else if(action.equals("ocr"))
             {
-                TextRecognition.SplitFiles(x);
+                Global.IncrementaNumeroRichiesteEffettive("participant");
+                
+                String value=TextRecognition.SplitFiles(x);
+                
+                double halfVOI= Global.getApplicationPriority("participant")*Global.getNumeroRichiesteEffettive("participant")/Global.getStimaNumeroRichieste("participant");
+                java.util.Date date= new java.util.Date();
+                SingleResult sr= new SingleResult(nomeFile, "ocr", value, new Timestamp(date.getTime()), coordinate[0], coordinate[1], halfVOI);
+                
+                Results.addResult(sr);
             }
             //cancello il file temporaneo per non sprecare spazio
-            //x.delete();
+            x.delete();
         }
         
               
         
     }
     
+    public void CalcVOI()
+    {
+        
+    }
          
     
-    /*public String getNameFile()
-    {
-        String fileName;
-        File file;
-        UUID uuid = UUID.randomUUID();
-        String randomUUIDString = uuid.toString();;
-        
-        fileName=(Thread.currentThread().getName())+randomUUIDString+".jpg";
-        file= new File(fileName);
-        //verifico che il fileName non sia gia presente
-        while(file.exists())
-        {   
-             fileName=(Thread.currentThread().getName())+randomUUIDString+".jpg";
-             file= new File(fileName);
-        }
-        
-        return fileName;
-    }*/
     
 }

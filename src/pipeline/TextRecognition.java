@@ -585,8 +585,9 @@ public class TextRecognition {
         return( outputimage );
     }
     
-    public static void SplitFiles( File fileIn)
+    public static String SplitFiles( File fileIn)
     {
+        String result="";
     try {
         String nomeFile= fileIn.getName();
         //System.out.println("il nome del file è "+nomeFile);
@@ -620,7 +621,7 @@ public class TextRecognition {
         for(int i=0;i<boxes.size();i++)
             {
                 TextRegion app=(TextRegion)boxes.get(i);
-                System.out.println("RIGA: "+i+"  -> "+app.x1 +" "+app.x2 +" "+app.y1 +" "+app.y2 +" ");
+   //             System.out.println("RIGA: "+i+"  -> "+app.x1 +" "+app.x2 +" "+app.y1 +" "+app.y2 +" ");
                 Rect roi1= new Rect( app.x1-tolleranza, app.y1-tolleranza, 
                                 app.x2-app.x1+tolleranza, app.y2-app.y1+2*tolleranza );
                 Mat mat1= new Mat( mat, roi1 );
@@ -634,7 +635,7 @@ public class TextRecognition {
                 File tmp=new File(nomeFileUscrita);
                 File output = new File(nomeFileUscrita);
                 ImageIO.write(image1, "jpg", output);
-                OCR_Processing.performOCR_String2Text(output);
+                result += (i+1)+")"+OCR_Processing.performOCR_String2Text(output);
                 tmp.delete();
          
             }
@@ -646,25 +647,9 @@ public class TextRecognition {
         catch( Exception e ) {
             System.out.println( "Exception: " + e );
         }
+    
+        return result;
         
     }
-        
-   /* public static String getNameFile()
-    {
-        String fileName;
-        File file;
-        UUID uuid = UUID.randomUUID();
-        String randomUUIDString = uuid.toString();;
-        
-        fileName=(Thread.currentThread().getName())+randomUUIDString+".jpg";
-        file= new File(fileName);
-        //verifico che il fileName non sia gia presente
-        while(file.exists())
-        {   
-             fileName=(Thread.currentThread().getName())+randomUUIDString+".jpg";
-             file= new File(fileName);
-        }
-        
-        return fileName;
-    }*/
+       
 }
