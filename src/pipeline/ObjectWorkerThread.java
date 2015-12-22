@@ -100,12 +100,4 @@ public class ObjectWorkerThread implements Runnable
               
         
     }
-    
-    public void CalcVOI()
-    {
-        
-    }
-         
-    
-    
 }
