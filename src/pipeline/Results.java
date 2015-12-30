@@ -38,7 +38,8 @@ public class Results
             if((sr.operation).equals(operation))
             {
                 //double distanza=( sqrt( pow((sr.gpsLat-gpsLat),2) + pow((sr.gpsLong-gpsLong),2) ) );
-                double distanza=distanzaGPS(sr.gpsLat,sr.gpsLong, gpsLat , gpsLong);
+                double distanza=distanzaGPS(sr.gpsLat,sr.gpsLong, gpsLat , gpsLong); //distanza in km
+				distanza=distanza*1000;
 				
                 // Calculates the difference in milliseconds.
                 long millisDiff = t.getTime() - sr.TimeStamp.getTime();
