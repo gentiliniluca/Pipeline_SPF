@@ -37,8 +37,9 @@ public class Results
         {
             if((sr.operation).equals(operation))
             {
-                double distanza=( sqrt( pow((sr.gpsLat-gpsLat),2) + pow((sr.gpsLong-gpsLong),2) ) );
-                
+                //double distanza=( sqrt( pow((sr.gpsLat-gpsLat),2) + pow((sr.gpsLong-gpsLong),2) ) );
+                double distanza=distanzaGPS(sr.gpsLat,sr.gpsLong, gpsLat , gpsLong);
+				
                 // Calculates the difference in milliseconds.
                 long millisDiff = t.getTime() - sr.TimeStamp.getTime();
                 int secondi = (int) (millisDiff / 1000);
@@ -75,6 +76,38 @@ public class Results
         else
             System.out.println("lista finale vuota");
     }
+	
+	public static double distanzaGPS(double lat1, double longit1, double lat2, double longit2)
+    {
+        lat1=radianti(lat1);
+        lat2=radianti(lat2);
+        longit1=radianti(longit1);
+        longit2=radianti(longit2);
+        
+        double distance = 0;
+        
+        double dist_long = longit2 - longit1;
+        double dist_lat = lat2 - lat1;
+        
+        double pezzo1 = Math.cos(lat2)*Math.sin(dist_long);
+        double pezzo11 = pezzo1*pezzo1;
+        
+        double pezzo2 = Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(dist_long);
+        double pezzo22 = pezzo2*pezzo2;
+        
+        double pezzo3 = Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(dist_long);
+        
+        double pezzo4 = Math.atan((Math.sqrt(pezzo11+pezzo22))/pezzo3);
+        
+        distance = pezzo4*6372;
+       
+        return distance;
+    }
+    
+    public static double radianti(double gradi_dec)
+	{
+		return gradi_dec * Math.PI / 180;
+	}
 
   
     
