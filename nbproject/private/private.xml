@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/luca/Desktop/Pipeline/src/pipeline/OCR_Processing.java</file>
-            <file>file:/home/luca/Desktop/Pipeline/src/pipeline/TextRecognition.java</file>
-            <file>file:/home/luca/Desktop/Pipeline/src/pipeline/MainPipeline.java</file>
-            <file>file:/home/luca/Desktop/Pipeline/src/pipeline/ObjectWorkerThread.java</file>
-            <file>file:/home/luca/Desktop/Pipeline/src/pipeline/MainTest.java</file>
-            <file>file:/home/luca/Desktop/Pipeline/src/pipeline/MainServerThread.java</file>
-            <file>file:/home/luca/Desktop/Pipeline/src/pipeline/Global.java</file>
+            <file>file:/C:/Users/Luca/Documents/GitHub/Pipeline_SPF/src/pipeline/MainTest.java</file>
+            <file>file:/C:/Users/Luca/Documents/GitHub/Pipeline_SPF/src/pipeline/Global.java</file>
         </group>
     </open-files>
 </project-private>
