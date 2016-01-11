@@ -86,17 +86,15 @@ public class ObjectWorkerThread implements Runnable
                 Global.IncrementaNumeroRichiesteEffettive("participant");
                 
                 String value=TextRecognition.SplitFiles(x);
-				
-				if(value.indexOf("water")!=-1)  //verifico che sia almeno presente la scritta water
-				{ 
-					double halfVOI= Global.getApplicationPriority("participant")*Global.getNumeroRichiesteEffettive("participant")/Global.getStimaNumeroRichieste("participant");
-					java.util.Date date= new java.util.Date();
-					SingleResult sr= new SingleResult(nomeFile, "ocr", value, new Timestamp(date.getTime()), coordinate[0], coordinate[1], halfVOI);
-					
-					Results.addResult(sr);
-				}
-				else
-					System.out.println("non presente scritta water");
+                
+                if((value.toUpperCase()).indexOf("WATER")!=-1){  //verifico che sia almeno presente la scritta water
+		
+                    double halfVOI= Global.getApplicationPriority("participant")*Global.getNumeroRichiesteEffettive("participant")/Global.getStimaNumeroRichieste("participant");
+                    java.util.Date date= new java.util.Date();
+                    SingleResult sr= new SingleResult(nomeFile, "ocr", value, new Timestamp(date.getTime()), coordinate[0], coordinate[1], halfVOI);
+
+                    Results.addResult(sr);
+                }
             }
             //cancello il file temporaneo per non sprecare spazio
             x.delete();
@@ -105,4 +103,12 @@ public class ObjectWorkerThread implements Runnable
               
         
     }
+    
+    public void CalcVOI()
+    {
+        
+    }
+         
+    
+    
 }

@@ -25,30 +25,33 @@ public class MainTest
         timer.start();
         Results.init();
         
-        MainPipeline cp= new MainPipeline(Global.count, 50000);
+        String operazioneCheSiVuoleFare=Global.ocr;
         
-        cp.startMainThread();
+        MainPipeline pipeline= new MainPipeline(operazioneCheSiVuoleFare, 50000);
+        
+        pipeline.startMainThread();
         Thread.sleep(500);
-        System.out.println("---------------------------------------------THREAD: "+cp.getNumberOfWorkingThread());
+        System.out.println("---------------------------------------------THREAD: "+pipeline.getNumberOfWorkingThread());
         Thread.sleep(15000);
-        cp.stopMainThread();
+        
         
        //simulo la richiesta del client
         System.out.println("simulooo....");
         java.util.Date date= new java.util.Date(); 
-        Results.createFinalList("count", 40.0 , 11.0 , new Timestamp(date.getTime()));
+        Results.createFinalList(operazioneCheSiVuoleFare, 40.0 , 11.0 , new Timestamp(date.getTime()));
         Results.stampaArrayFinale();
       
+        pipeline.stopMainThread();
         
         Thread.sleep(5000);
-        cp.startMainThread(); 
+        pipeline.startMainThread(); 
         
         Thread.sleep(2000);
-        cp.setMaxNumberOfWorkingThread(20);
-        System.out.println("---------------------------------------------THREAD: "+cp.getNumberOfWorkingThread());
+        pipeline.setMaxNumberOfWorkingThread(20);
+        System.out.println("---------------------------------------------THREAD: "+pipeline.getNumberOfWorkingThread());
         Thread.sleep(15000);
         
-        cp.stopMainThread();
+        pipeline.stopMainThread();
         
           
      /*   

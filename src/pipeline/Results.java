@@ -5,6 +5,7 @@
  */
 package pipeline;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import java.sql.Timestamp;
@@ -39,8 +40,8 @@ public class Results
             {
                 //double distanza=( sqrt( pow((sr.gpsLat-gpsLat),2) + pow((sr.gpsLong-gpsLong),2) ) );
                 double distanza=distanzaGPS(sr.gpsLat,sr.gpsLong, gpsLat , gpsLong); //distanza in km
-				distanza=distanza*1000;
-				
+		//distanza=distanza*1000;
+                
                 // Calculates the difference in milliseconds.
                 long millisDiff = t.getTime() - sr.TimeStamp.getTime();
                 int secondi = (int) (millisDiff / 1000);
@@ -77,8 +78,8 @@ public class Results
         else
             System.out.println("lista finale vuota");
     }
-	
-	public static double distanzaGPS(double lat1, double longit1, double lat2, double longit2)
+    
+    public static double distanzaGPS(double lat1, double longit1, double lat2, double longit2)
     {
         lat1=radianti(lat1);
         lat2=radianti(lat2);
@@ -102,7 +103,7 @@ public class Results
         
         distance = pezzo4*6372;
        
-        return distance;
+        return abs(distance);
     }
     
     public static double radianti(double gradi_dec)

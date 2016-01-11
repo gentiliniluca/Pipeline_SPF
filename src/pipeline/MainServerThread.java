@@ -42,10 +42,10 @@ public class MainServerThread implements Runnable
             }
         
         } catch (IOException ex) {
-            System.out.println("errore IO CountObject main thread: "+ex);
+            System.out.println("errore/interruzione IO server main thread: "+ex);
         }
         catch (Exception e) {
-            System.out.println("errore CountObject main thread: "+e);
+            System.out.println("errore server main thread: "+e);
         }
     }
     
